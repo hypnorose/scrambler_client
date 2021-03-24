@@ -1,0 +1,56 @@
+<html>
+<head>
+
+</head>
+<body>
+<textarea id="input-data" cols=90></textarea>
+<p id="output-registers" >r</p>
+<p id="output-data">d</p>
+<button onclick="compute()">Next</button>
+<script src="main.js"></script> 
+<script type="text/javascript">
+	let default_data = "1111111111000000000000000111111111111110000000000000";
+	let ss = new ScramblerSimulator(8);
+	ss.setBits([1,1,1,1,1,1,1,1]);
+	document.getElementById("input-data").value = default_data;
+	
+	ss.setPolyParams([0,6,7]);
+	function compute(){
+		console.log("test");
+		let bit_stream = new Array();
+		for(let i = 0; i < default_data.length;i++){
+			if(default_data[i] == '0'){
+				bit_stream.push(0);
+			}
+			else{
+				bit_stream.push(1);	
+			}
+			ss.setBitStream(bit_stream);
+		}
+		default_data = default_data.slice(0,default_data.length-1);
+		document.getElementById("input-data").value = default_data;
+		let bit_boolean = ss.getNext();
+		let new_bit;
+		if(bit_boolean){
+			new_bit = 1;
+		}
+		else{
+			new_bit = 0;
+		}
+		document.getElementById("output-data").innerHTML+=new_bit;
+		document.getElementById("output-registers").innerHTML="";
+		for(let i = 0; i < ss.bits.size;i++){
+			if(ss.bits[i] == true){
+				document.getElementById("output-registers").innerHTML+= '1';
+			}
+			else{
+				document.getElementById("output-registers").innerHTML+= '0';
+			}
+		}
+	}
+	
+</script>
+</body>
+
+
+</html>
