@@ -8,10 +8,10 @@
 <p id="output-data">d</p>
 <button onclick="compute()">Next</button>
 <script src="main.js"></script> 
-<script type="text/javascript">
+<script type="text/javascript"	>
 	let default_data = "1111111111000000000000000111111111111110000000000000";
 	let ss = new ScramblerSimulator(8);
-	ss.setBits([1,1,1,1,1,1,1,1]);
+	ss.setBits([1,0,1,1,1,0,0,1]);
 	document.getElementById("input-data").value = default_data;
 	
 	ss.setPolyParams([0,6,7]);

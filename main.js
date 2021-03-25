@@ -1,6 +1,18 @@
 function xor(a, b) {
     return !(a == b);
 }
+function bitToBool(a) {
+    if (a == 1)
+        return true;
+    else
+        return false;
+}
+function boolToBit(a) {
+    if (a)
+        return 1;
+    else
+        return 0;
+}
 var ScramblerSimulator = /** @class */ (function () {
     function ScramblerSimulator(size) {
         this.bits = new Array(size);
@@ -26,16 +38,17 @@ var ScramblerSimulator = /** @class */ (function () {
         this.bitStream = bitStream;
     };
     ScramblerSimulator.prototype.getNext = function () {
-        var outcome = false;
+        var outcome = true;
         for (var i = 0; i < this.size; i++) {
             if (this.polybits[i]) {
                 outcome = xor(outcome, this.bits[i]);
             }
         }
-        var new_bit = this.bitStream.pop();
-        this.bits.splice(0, 0, new_bit);
+        console.log(this.bitStream);
+        this.bits.splice(0, 0, outcome);
         this.bits.pop();
-        return outcome;
+        var next_bit = this.bitStream.pop();
+        return xor(outcome, next_bit);
     };
     ScramblerSimulator.prototype.getNextNBits = function (quantity) {
         var return_array = new Array(0);

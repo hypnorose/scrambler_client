@@ -4,6 +4,14 @@ function xor(a: boolean, b:boolean): boolean{
 	return ! (a == b);
 }
 
+function bitToBool(a: number) : boolean{
+	if(a==1)return true;
+	else return false;
+}
+function boolToBit(a: boolean) : number{
+	if(a)return 1;
+	else return 0;
+}
 class ScramblerSimulator {
 
 	size: number;
@@ -38,17 +46,19 @@ class ScramblerSimulator {
 		this.bitStream = bitStream;
 	}
 	getNext() : boolean{
-		let outcome = false;
+		let outcome = true;
 		for(let i = 0; i < this.size;i++){
 			if (this.polybits[i]){
 				outcome = xor(outcome,this.bits[i]);
 			}
 		}
 	
-		let new_bit = this.bitStream.pop();
-		this.bits.splice(0,0,new_bit);
+		
+		console.log(this.bitStream);
+		this.bits.splice(0,0,outcome);
 		this.bits.pop();
-		return outcome;
+		let next_bit = this.bitStream.pop();
+		return xor(outcome,next_bit);
 	}
 	getNextNBits(quantity: number): boolean[]{
 		let return_array = new Array<boolean>(0);
